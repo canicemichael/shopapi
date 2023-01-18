@@ -16,10 +16,14 @@ app.use(morgan("tiny"));
 
 // Routes
 const productsRoutes = require("./routes/products");
-// const categoriesRoutes = require("./routes/")
-// const usersRoutes = require('./routes/')
+const categoriesRoutes = require("./routes/categories")
+const usersRoutes = require('./routes/users')
+const ordersRoutes = require('./routes/orders')
 
 app.use(`${api}/products`, productsRoutes);
+app.use(`${api}/categories`, categoriesRoutes);
+app.use(`${api}/users`, usersRoutes);
+app.use(`${api}/orders`, ordersRoutes);
 
 mongoose.set("strictQuery", true);
 mongoose
