@@ -59,6 +59,15 @@ const productSchema = mongoose.Schema({
   },
 });
 
+// inorder to change _id key to id which my mongoDB creates for every document I created, we use the following method, this change will enable us to use
+productSchema.virtual("id").get(function () {
+  return this._id.toHexString();
+});
+
+productSchema.set("toJSON", {
+  virtuals: true,
+}); 
+
 const Product = mongoose.model("Product", productSchema);
 
 module.exports = { Product };
