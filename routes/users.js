@@ -3,7 +3,6 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const secret = process.env.secret;
 
 router.get("/", async (req, res) => {
   const userList = await User.find().select("-passwordHash");
@@ -25,7 +24,7 @@ router.get("/:id", async (req, res) => {
   res.status(200).send(user);
 });
 
-router.post("/", async (req, res) => {
+router.post("/register", async (req, res) => {
   let salt = bcrypt.genSaltSync(10);
   let user = new User({
     name: req.body.name,
@@ -47,6 +46,7 @@ router.post("/", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
+  const secret = process.env.secret;
 
   if (!user) {
     return res.status(400).send("The user not found");
