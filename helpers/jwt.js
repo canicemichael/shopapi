@@ -7,11 +7,23 @@ const api = process.env.API_URL
 exports.authJwt = expressJwt({
   secret: process.env.secret,
   algorithms: ["HS256"],
+  isRevoked: isRevoked
 }).unless({
   path: [
-    `/${api}/v1/users/login`,
-    `/${api}/v1/users/register`,
     {url: /\/api\/v1\/products(.*)/, methods: ['GET', 'OPTIONS'] },
     {url: /\/api\/v1\/categories(.*)/, methods: ['GET', 'OPTIONS'] },
+    {url: /\/api\/v1\/users\/login(.*)/, methods: ['POST', 'OPTIONS'] },
+    {url: /\/api\/v1\/users\/register(.*)/, methods: ['POST', 'OPTIONS'] },
+    `/${api}/v1/users/login`,
+    `/${api}/v1/users/register`,    
   ]
 })
+
+// isRevoked function has  helped us to give a role to the admin, to be able to access some apis
+async function isRevoked(req, payload, done) {
+  if(!payload.isAdmin) {
+    done(null, true)
+  }
+
+  done();
+}
