@@ -59,7 +59,7 @@ const productSchema = mongoose.Schema({
   },
 });
 
-// inorder to change _id key to id which my mongoDB creates for every document I created, we use the following method, this change will enable us to use
+// inorder to change _id key to id which my mongoDB creates for every document I created, we use the following method, this change will enable us to use "id" easily in our frontend
 productSchema.virtual("id").get(function () {
   return this._id.toHexString();
 });
