@@ -66,7 +66,7 @@ productSchema.virtual("id").get(function () {
 
 productSchema.set("toJSON", {
   virtuals: true,
-}); 
+});
 
 const Product = mongoose.model("Product", productSchema);
 
