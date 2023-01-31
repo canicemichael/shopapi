@@ -188,7 +188,7 @@ router.put(
 
     if (files) {
       files.map((file) => {
-        imagesPaths.push(`${basePath}${file.fileName}`);
+        imagesPaths.push(`${basePath}${file.filename}`);
       });
     }
 

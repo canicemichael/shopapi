@@ -17,6 +17,7 @@ app.options("*", cors());
 app.use(express.json({ extended: false }));
 app.use(morgan("tiny"));
 app.use(authJwt);
+app.use("public/uploads", express.static(__dirname + "public/uploads"));
 app.use(errorHandler);
 
 // Routes
@@ -33,7 +34,7 @@ app.use(`${api}/orders`, ordersRoutes);
 mongoose.set("strictQuery", true);
 mongoose
   .connect(
-    "mongodb+srv://canice:canice@cluster0.iihi0xn.mongodb.net/eshop-database?retryWrites=true&w=majority"
+    process.env.mongodb
     // {
     //   useNewUrlParser: true,
     //   useUnifiedTopology: true,
