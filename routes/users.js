@@ -56,14 +56,14 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign(
       {
         userId: user.id,
-        isAdmin: user.isAdmin
+        isAdmin: user.isAdmin,
       },
       secret,
       { expiresIn: "1w" }
     );
     res.status(200).send({ user: user.email, token: token });
   } else {
-    res.status(400).send("password is wrong");
+    res.status(400).send("wrong email or password");
   }
 });
 
@@ -87,7 +87,7 @@ router.delete("/:id", async (req, res) => {
 
 router.get("/get/count", async (req, res) => {
   // mongoose has alot of methods, where we can get the total amount of a particular entity or documents n many of methods like that
-  
+
   User.countDocuments(function (err, c) {
     if (!c) {
       res.status(500).json({ success: false });
