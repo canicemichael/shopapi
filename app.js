@@ -44,6 +44,5 @@ mongoose
   .then(() => console.log("Database Connected!"));
 
 app.listen(3000, () => {
-  console.log(api);
   console.log("Server has started");
 });
